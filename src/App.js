@@ -34,7 +34,7 @@ class App extends React.Component {
 
   handleClick(key) {
     const newClicks = this.state.todos.slice();
-    newClicks[key].isDone = this.state.isDone ? "戻す" : "完了";
+    newClicks[key].isDone = ！this.state.isDone;
 
     this.setState({
       todos: newClicks
