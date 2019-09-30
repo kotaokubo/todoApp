@@ -19,11 +19,13 @@ class App extends React.Component {
     e.preventDefault();
 
     const title = e.target.title.value;
-    const desc = e.target.title.value;
+    const desc = e.target.desc.value;
+    const color = e.target.color.value;
     const newTodos = this.state.todos.slice();
     newTodos.push({
       title: title,
       desc: desc,
+      color: color,
       isDone: false
     });
 
@@ -34,7 +36,7 @@ class App extends React.Component {
 
   handleClick(key) {
     const newClicks = this.state.todos.slice();
-    newClicks[key].isDone = ！this.state.isDone;
+    newClicks[key].isDone = !newClicks[key].isDone;
 
     this.setState({
       todos: newClicks

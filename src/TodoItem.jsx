@@ -12,9 +12,11 @@ export default class TodoItem extends React.Component {
 
     return (
       <li>
+        <p>色：{this.props.color}</p>
         <p>タイトル: {this.props.title}</p>
         <p>詳細: {this.props.desc}</p>
         <button onClick={handleId}>{buttonText}</button>
+        <button>削除</button>
       </li>
     );
   }
