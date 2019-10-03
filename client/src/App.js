@@ -20,18 +20,31 @@ class App extends React.Component {
 
     const title = e.target.title.value;
     const desc = e.target.desc.value;
-    const color = e.target.color.value;
-    const newTodos = this.state.todos.slice();
-    newTodos.push({
-      title: title,
-      desc: desc,
-      color: color,
-      isDone: false
-    });
+    // const color = e.target.color.value;
+    // const newTodos = this.state.todos.slice();
 
-    this.setState({
-      todos: newTodos
-    });
+    fetch('http://localhost:3001/api/todos', {
+      method: 'POST',
+      body: JSON.stringify({
+        title: title,
+        desc: desc,
+        isDone: false
+      })
+    }).then(() => {
+      this.fetchResponse()
+
+    })
+
+    // newTodos.push({
+    //   title: title,
+    //   desc: desc,
+    //   color: color,
+    // //   isDone: false
+    // // });
+
+    // this.setState({
+    //   todos: newTodos
+    // });
   }
 
   handleClick(key) {
@@ -42,6 +55,17 @@ class App extends React.Component {
       todos: newClicks
     });
   }
+
+  fetchResponse() {
+    fetch('http://localhost:3001/api/todos')
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          todo: res
+        })
+      })
+  }
+
   render() {
     const status = this.state.isDone ? "戻す" : "完了";
     return (
