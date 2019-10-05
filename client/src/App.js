@@ -9,12 +9,17 @@ const Container = styled.div`
 `;
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       todos: []
     };
   }
+
+  componentDidMount() {
+    this.fetchResponse()
+  }
+
   handleSubmit(e) {
     e.preventDefault();
 
@@ -25,6 +30,9 @@ class App extends React.Component {
 
     fetch('http://localhost:3001/api/todos', {
       method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         title: title,
         desc: desc,
@@ -32,28 +40,23 @@ class App extends React.Component {
       })
     }).then(() => {
       this.fetchResponse()
-
     })
 
-    // newTodos.push({
-    //   title: title,
-    //   desc: desc,
-    //   color: color,
-    // //   isDone: false
-    // // });
-
-    // this.setState({
-    //   todos: newTodos
-    // });
   }
 
   handleClick(key) {
-    const newClicks = this.state.todos.slice();
-    newClicks[key].isDone = !newClicks[key].isDone;
-
+    const newTodos = this.state.todos.slice();
+    newTodos[key].isDone = !newTodos[key].isDone;
     this.setState({
-      todos: newClicks
+      todos: newTodos
     });
+  }
+
+  handleDelete(key) {
+    console.log(key);
+    const deleteOption = {
+      method: 'DELETE'
+    }
   }
 
   fetchResponse() {
@@ -61,20 +64,28 @@ class App extends React.Component {
       .then(res => res.json())
       .then(res => {
         this.setState({
-          todo: res
+          todos: res
         })
       })
   }
 
   render() {
-    const status = this.state.isDone ? "戻す" : "完了";
+    // const status = this.state.isDone ? "戻す" : "完了";
     return (
+      // <Container>
+      //   <div>{status}</div>
+      //   <Form handleSubmit={this.handleSubmit.bind(this)}></Form>
+      //   <TodoList
+      //     todos={this.state.todos}
+      //     handleClick={this.handleClick.bind(this)}
+      //   ></TodoList>
+      // </Container>
       <Container>
-        <div>{status}</div>
         <Form handleSubmit={this.handleSubmit.bind(this)}></Form>
         <TodoList
           todos={this.state.todos}
           handleClick={this.handleClick.bind(this)}
+          handleDelete={this.handleDelete.bind(this)}
         ></TodoList>
       </Container>
     );

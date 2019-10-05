@@ -20,6 +20,7 @@ export default class TodoList extends React.Component {
           color={todo.color}
           isDone={todo.isDone}
           handleClick={this.props.handleClick}
+          handleDelet={this.props.handleDelete}
         ></TodoItem>
       );
     });
