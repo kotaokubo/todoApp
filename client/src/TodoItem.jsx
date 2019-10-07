@@ -1,4 +1,11 @@
 import React from "react";
+import ReactDOM from 'react-dom';
+import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
+
+// const StyledBtn = styled.button(Button)`
+//   background-color: green;
+// `
 
 export default class TodoItem extends React.Component {
   render() {
@@ -19,8 +26,15 @@ export default class TodoItem extends React.Component {
         <p>色：{this.props.color}</p>
         <p>タイトル: {this.props.title}</p>
         <p>詳細: {this.props.desc}</p>
-        <button onClick={handleId}>{buttonText}</button>
-        <button onClick={handleDelete}>削除</button>
+
+
+        <Button variant="contained" color="primary" onClick={handleId}>
+          {buttonText}
+        </Button>
+        <Button variant="contained" color="primary" onClick={handleDelete}>
+          削除
+        </Button>
+
       </li>
     );
   }

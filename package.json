@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "npm-run-all -p dev:*",
-    "dev:server": "nodemon server.js",
-    "dev:client": "yarn --cwd ../client start"
+    "dev:server": "yarn run nodemon server/server.js",
+    "dev:client": "yarn --cwd client start"
   }
 }

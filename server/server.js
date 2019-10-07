@@ -56,6 +56,23 @@ router
       res.json(todo);
     });
   })
+  .put(function (req, res) {
+    Todo.findById(req.params.todo_id, function (err, todo) {
+      if (err) {
+        res.send(err);
+      }
+
+      todo.title = req.body.title;
+      todo.desc = req.body.desc;
+      todo.isDone = req.body.isDone;
+
+      todo.save(function (err) {
+        res.json({
+          message: "PUT Complete"
+        });
+      });
+    });
+  })
   .delete(function (req, res) {
     Todo.remove(
       {
@@ -75,6 +92,7 @@ router
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "PUT, DELETE, GET");
   next();
 });
 app.use("/api", router);
